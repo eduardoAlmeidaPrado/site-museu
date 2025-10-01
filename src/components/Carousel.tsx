@@ -3,14 +3,17 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
+// 1. Defina suas imagens (ajuste os caminhos conforme sua estrutura)
 const images = [
   { src: "/images/slide-1.jpg", alt: "Descrição da Imagem 1" },
   { src: "/images/slide-2.jpg", alt: "Descrição da Imagem 2" },
   { src: "/images/slide-3.jpg", alt: "Descrição da Imagem 3" },
+  // Adicione mais imagens conforme necessário
 ];
 
-const TRANSITION_DURATION = 5000;
-const TRANSITION_STYLE = "transition-opacity duration-700 ease-in-out";
+// Configuração do carrossel
+const TRANSITION_DURATION = 5000; // Tempo em milissegundos
+const TRANSITION_STYLE = "transition-opacity duration-700 ease-in-out"; // Duração da transição CSS
 
 export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
