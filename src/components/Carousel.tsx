@@ -18,19 +18,27 @@ const TRANSITION_STYLE = "transition-opacity duration-700 ease-in-out"; // Dura�
 export default function Carousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // 2. useEffect para o autoplay
   useEffect(() => {
+    // Função para avançar para a próxima imagem
     const goToNext = () => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setCurrentIndex(
+        (prevIndex) => (prevIndex + 1) % images.length // Volta para 0 se for a última
+      );
     };
 
+    // Configura o intervalo para a transição automática
     const intervalId = setInterval(goToNext, TRANSITION_DURATION);
 
+    // Limpa o intervalo quando o componente for desmontado ou re-renderizado
     return () => clearInterval(intervalId);
-  }, [images.length]);
+  }, [images.length]); // Re-executa se o número de imagens mudar (raro)
 
   return (
+    // Carrossel com largura total (w-full), altura fixa e posição relativa
     <div className="relative w-full overflow-hidden h-100">
       {" "}
+      {/* h-screen ocupa a altura total da viewport */}
       {images.map((image, index) => (
         <div
           key={index}
@@ -43,15 +51,18 @@ export default function Carousel() {
           <Image
             src={image.src}
             alt={image.alt}
-            fill
-            priority={index === 0}
-            quality={80}
-            sizes="100vw"
-            className="object-cover"
+            // Next.js Image Component para otimização
+            fill // Ocupa todo o espaço do div pai (inset-0)
+            priority={index === 0} // Prioriza o carregamento da primeira imagem
+            quality={80} // Qualidade da imagem
+            sizes="100vw" // Diz ao Next.js que a imagem é 100% da largura da tela
+            className="object-cover" // Garante que a imagem cubra toda a área sem distorcer
           />
 
+          {/* Opcional: Adicionar uma sobreposição para melhorar a legibilidade do texto */}
           <div className="absolute inset-0 bg-black/30"></div>
 
+          {/* Opcional: Texto centralizado na imagem */}
           <div className="absolute inset-0 flex items-center justify-center p-4">
             <h1 className="text-4xl md:text-6xl text-white font-bold text-center drop-shadow-lg">
               {image.alt}
@@ -59,6 +70,7 @@ export default function Carousel() {
           </div>
         </div>
       ))}
+      {/* Opcional: Indicadores de slide */}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
         {images.map((_, index) => (
           <button
