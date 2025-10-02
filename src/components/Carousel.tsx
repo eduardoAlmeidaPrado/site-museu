@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 const images = [
-  { src: "/images/slide-1.jpg", alt: "Descrição da Imagem 1" },
-  { src: "/images/slide-2.jpg", alt: "Descrição da Imagem 2" },
-  { src: "/images/slide-3.jpg", alt: "Descrição da Imagem 3" },
+  { src: "/images/slide-1.jpg", alt: "COLOCAR IMAGEM 1" },
+  { src: "/images/slide-2.jpg", alt: "COLOCAR IMAGEM 2" },
+  { src: "/images/slide-3.jpg", alt: "COLOCAR IMAGEM 3" },
 ];
 
 const TRANSITION_DURATION = 5000;
@@ -26,8 +26,7 @@ export default function Carousel() {
   }, [images.length]);
 
   return (
-    <div className="relative w-full overflow-hidden h-100">
-      {" "}
+    <div className="relative w-full overflow-hidden h-64">
       {images.map((image, index) => (
         <div
           key={index}

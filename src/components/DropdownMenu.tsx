@@ -27,7 +27,7 @@ export default function DropdownMenu({ label, items }: DropdownMenuProps) {
         <span className="font-semibold text-blue-950">{label}</span>
         <IoMdArrowDropdown className="w-4 h-4 pt-0.5" />
         {open && (
-          <div className="absolute top-6.5 left-0 w-full text-center shadow-lg bg-white z-10">
+          <div className="absolute top-6 left-0 w-full text-center shadow-lg bg-white z-10">
             <ul className="font-semibold text-blue-950">
               {items.map((item) => (
                 <li

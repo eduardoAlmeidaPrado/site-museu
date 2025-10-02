@@ -7,7 +7,7 @@ export default function Header() {
     <header className="py-8 mx-auto">
       <div className="container flex items-center gap-x-10 pl-2 pr-4">
         <Link className="flex items-center gap-x-2" href="/">
-          <Image src="/.png" alt="Icone" width={64} height={64} />
+          <Image src="/logo-udc.png" alt="Ícone" width={64} height={64} />
           <span className="font-extrabold text-3xl text-blue-950 uppercase">
             Museu de
             <br />
@@ -15,7 +15,7 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="ml-100">
+        <nav className="ml-10">
           <ul className="flex items-center gap-x-8 justify-end">
             <li className="border-b-2 border-white hover:border-b-2 hover:border-blue-950">
               <Link className="font-semibold text-blue-950" href="/">
@@ -34,7 +34,7 @@ export default function Header() {
                 Doações
               </Link>
             </li>
-
+            {/*
             <DropdownMenu
               label="Explore as Décadas"
               items={[
@@ -47,6 +47,7 @@ export default function Header() {
                 { key: 7, content: "2020", href: "/" },
               ]}
             />
+*/}
           </ul>
         </nav>
       </div>
