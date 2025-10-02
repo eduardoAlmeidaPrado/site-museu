@@ -19,10 +19,10 @@ export default function Footer() {
           <span className="font-semibold text-blue-950">Parcerias:</span>
           <ul className="space-y-2">
             <li>
-              <a href="">LixoTec</a>
+              <a href="#">LixoTec</a>
             </li>
             <li>
-              <a href="">Texto</a>
+              <a href="#">Texto</a>
             </li>
           </ul>
         </div>
@@ -47,7 +47,9 @@ export default function Footer() {
               <a
                 href="https://www.facebook.com"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center"
+                aria-label="Facebook"
               >
                 <FaFacebook className="w-4 h-4 mr-0.5" />
                 Facebook
@@ -57,7 +59,9 @@ export default function Footer() {
               <a
                 href="https://www.instagram.com/museu_tecudc"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center"
+                aria-label="Instagram"
               >
                 <FaInstagram className="w-4 h-4 mr-0.5 pr-0.5 " />
                 Instagram
@@ -67,7 +71,9 @@ export default function Footer() {
               <a
                 href="https://www.youtube.com"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center"
+                aria-label="YouTube"
               >
                 <FaYoutube className="w-4 h-4 mr-0.5" />
                 YouTube
