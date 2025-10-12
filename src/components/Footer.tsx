@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
+import Social from "../components/Social";
 
 export default function Footer() {
   return (
-    <footer className="bg-white py-2 px-4">
+    <footer className="w-full bg-slate-900 text-slate-400 text-center py-6 mt-auto border-t border-slate-700">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center items-center">
         <div className="col-span-1 flex justify-center">
           <Image
@@ -19,10 +19,10 @@ export default function Footer() {
           <span className="font-semibold text-blue-950">Parcerias:</span>
           <ul className="space-y-2">
             <li>
-              <a href="">LixoTec</a>
+              <a href="#">LixoTec</a>
             </li>
             <li>
-              <a href="">Texto</a>
+              <a href="#">Texto</a>
             </li>
           </ul>
         </div>
@@ -40,40 +40,8 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-
-        <div className="col-span-1 pt-2 flex flex-col items-center">
-          <ul className="space-y-2 font-semibold text-blue-950">
-            <li>
-              <a
-                href="https://www.facebook.com"
-                target="_blank"
-                className="flex items-center"
-              >
-                <FaFacebook className="w-4 h-4 mr-0.5" />
-                Facebook
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com/museu_tecudc"
-                target="_blank"
-                className="flex items-center"
-              >
-                <FaInstagram className="w-4 h-4 mr-0.5 pr-0.5 " />
-                Instagram
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.youtube.com"
-                target="_blank"
-                className="flex items-center"
-              >
-                <FaYoutube className="w-4 h-4 mr-0.5" />
-                YouTube
-              </a>
-            </li>
-          </ul>
+        <div className="flex flex-col justify-center items-center py-4">
+          <Social />
         </div>
       </div>
       <div className="flex justify-center mt-4">
