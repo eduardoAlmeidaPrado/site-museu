@@ -7,7 +7,7 @@ const Social: React.FC = () => {
     <div className="flex justify-center items-center h-auto py-4">
       <a
         href="#"
-        className="text-5xl text-gray-400 transition-all duration-300 hover:text-pink-500 hover:drop-shadow-[0_0_15px_#ff00c8]"
+        className="text-5xl text-gray-400 dark:text-gray-300 transition-all duration-300 hover:text-pink-500 hover:drop-shadow-[0_0_15px_#ff00c8]"
         aria-label="Instagram"
       >
         <FaInstagram />
@@ -15,5 +15,4 @@ const Social: React.FC = () => {
     </div>
   );
 };
-
 export default Social;

@@ -3,7 +3,7 @@ import Social from "../components/Social";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-slate-900 text-slate-400 text-center py-6 mt-auto border-t border-slate-700">
+    <footer className="w-full bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-center py-6 mt-auto border-t border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center items-center">
         <div className="col-span-1 flex justify-center">
           <Image
