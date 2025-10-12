@@ -1,33 +1,61 @@
 "use client";
 import React from "react";
+import TxtReveal from "./TxtReveal";
 
-const About: React.FC = () => {
+const About = () => {
   return (
-    <section className="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-      <div>
-        <img
-          src="https://via.placeholder.com/500x300"
-          alt="COLOCAR IMAGEM AQUI"
-          className="rounded-xl shadow-lg"
-        />
-      </div>
-      <div>
-        <h2 className="text-3xl font-bold mb-4">Sobre o Museu</h2>
-        <h3 className="text-xl text-gray-600 mb-3">
-          Uma jornada através da inovação
-        </h3>
-        <p className="text-gray-700 leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-          euismod, nisi vel consectetur interdum, nisl nisi consectetur nisi,
-          euismod aliquam nisl nisi euismod. Vivamus lacinia odio vitae
-          vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Pellentesque euismod, nisi vel consectetur interdum, nisl nisi
-          consectetur nisi, euismod aliquam nisl nisi euismod. Vivamus lacinia
-          odio vitae vestibulum.
-        </p>
+    <section className="py-20 px-4 md:px-8 bg-gray-50 dark:bg-gray-900 transition-colors duration-500 min-h-[150vh]">
+      <div className="max-w-4xl mx-auto">
+        <TxtReveal
+          size="2xl"
+          align="center"
+          variant="primary"
+          staggerDelay={0.03}
+          baseRotation={0}
+          containerClassName="mb-12 font-extrabold"
+        >
+          Museu Tecnológico: Nossa História e Missão
+        </TxtReveal>
+        <TxtReveal
+          size="lg"
+          align="left"
+          variant="default"
+          staggerDelay={0.05}
+          baseRotation={3}
+          containerClassName="mb-10 max-w-3xl mx-auto"
+        >
+          Desde a sua fundação, o Museu Tecnológico tem se dedicado a preservar
+          os artefatos e as narrativas que definiram a era digital. Não somos
+          apenas um depósito de máquinas antigas, mas um espaço interativo que
+          celebra a engenhosidade humana e a rápida evolução que moldou nossa
+          sociedade moderna.
+        </TxtReveal>
+        <div className="my-20">
+          <TxtReveal
+            size="xl"
+            align="center"
+            variant="muted"
+            staggerDelay={0.06}
+            enableBlur={false}
+            containerClassName="italic max-w-xl mx-auto"
+          >
+            "Entender o passado tecnológico é o mapa para inovar no futuro."
+          </TxtReveal>
+        </div>
+        <TxtReveal
+          size="md"
+          align="left"
+          variant="default"
+          staggerDelay={0.04}
+          containerClassName="mb-10 max-w-3xl mx-auto"
+        >
+          Explore nossas coleções que abrangem desde a era pré-digital até os
+          mais avançados conceitos de inteligência artificial. Convidamos você a
+          mergulhar nesta jornada, descobrindo as inovações que transformaram a
+          maneira como vivemos, trabalhamos e nos comunicamos.
+        </TxtReveal>
       </div>
     </section>
   );
 };
-
 export default About;

@@ -41,6 +41,22 @@ export default function Header() {
                 Doações
               </Link>
             </li>
+            <li className="border-b-2 border-transparent hover:border-blue-950 dark:hover:border-blue-300">
+              <Link
+                className="font-semibold text-blue-950 dark:text-blue-300 text-base"
+                href="/"
+              >
+                Jornal
+              </Link>
+            </li>
+            <li className="border-b-2 border-transparent hover:border-blue-950 dark:hover:border-blue-300">
+              <Link
+                className="font-semibold text-blue-950 dark:text-blue-300 text-base"
+                href="/"
+              >
+                Podcast
+              </Link>
+            </li>
             <li className="pl-2">
               <ToggleTheme className="text-gray-600 dark:text-gray-300 bg-transparent hover:bg-transparent" />
             </li>
