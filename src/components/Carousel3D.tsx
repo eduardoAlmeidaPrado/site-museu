@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 interface CarouselItem {
   imageSrc: string;
   altText: string;
@@ -9,6 +9,7 @@ interface Carousel3DProps {
   images: CarouselItem[];
   autoRotate: boolean;
 }
+
 export const Carousel3D: React.FC<Carousel3DProps> = ({
   images,
   autoRotate,
@@ -17,11 +18,17 @@ export const Carousel3D: React.FC<Carousel3DProps> = ({
   const totalImages = CAROUSEL_DATA.length;
   const animationDuration = autoRotate ? "30s" : "0s";
   return (
-    <div
-      className="relative flex items-center justify-center p-12 overflow-hidden"
-      style={{ "--total": totalImages } as React.CSSProperties}
-    >
-      <style>{`
+    <>
+      <div className="flex items-center justify-center">
+        <span className="text-3xl font-semibold text-slate-950">
+          Acervo Digital
+        </span>
+      </div>
+      <div
+        className="relative flex items-center justify-center p-12 overflow-hidden"
+        style={{ "--total": totalImages } as React.CSSProperties}
+      >
+        <style>{`
   @keyframes rotate-ring {
     from {
       transform: rotateY(0deg);
@@ -63,22 +70,23 @@ export const Carousel3D: React.FC<Carousel3DProps> = ({
   }
 `}</style>
 
-      <div className="ring-container">
-        {CAROUSEL_DATA.map((item, index) => (
-          <div
-            key={index}
-            className="ring-item"
-            style={{ "--i": index } as React.CSSProperties}
-          >
-            <img
-              src={item.imageSrc}
-              alt={item.altText}
-              className="ring-image"
-              loading="lazy"
-            />
-          </div>
-        ))}
+        <div className="ring-container">
+          {CAROUSEL_DATA.map((item, index) => (
+            <div
+              key={index}
+              className="ring-item"
+              style={{ "--i": index } as React.CSSProperties}
+            >
+              <img
+                src={item.imageSrc}
+                alt={item.altText}
+                className="ring-image"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -16,7 +16,6 @@ type DropdownMenuProps = {
 
 export default function DropdownMenu({ label, items }: DropdownMenuProps) {
   const [open, setOpen] = useState(false);
-
   return (
     <li
       className="border-b-2 border-white hover:border-b-2 hover:border-blue-950 cursor-pointer"
