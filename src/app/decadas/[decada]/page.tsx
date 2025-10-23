@@ -1,79 +1,169 @@
-// Dados de exemplo
-const decadesData: Record<string, { title: string; content: string }> = {
-  "1960": {
-    title: "A Contracultura",
-    content: "Explosão do Rock, movimentos sociais e corrida espacial.",
-  },
-  "1970": {
-    title: "A Era Disco",
-    content: "Crises do petróleo, emergência da música disco e punk rock.",
-  },
-  "1980": {
-    title: "Tecnologia e Excesso",
-    content: "Ascensão do computador pessoal, MTV e moda exagerada.",
-  },
-  "1990": {
-    title: "O Grunge e a Internet",
-    content: "Nirvana, o boom da World Wide Web e videogames 3D.",
-  },
-  "2000": {
-    title: "O Milênio Digital",
-    content: "Redes sociais, smartphones e cultura pop globalizada.",
-  },
-  "2010": {
-    title: "A Década do Streaming",
-    content: "Domínio das plataformas de streaming e ativismo online.",
-  },
-  "2020": {
-    title: "A Década Atual",
-    content: "Foco em IA, saúde global e grandes mudanças climáticas.",
-  },
+import Image from "next/image";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+
+type SectionData = {
+  heading: string;
+  paragraph: string;
+  imagePath: string;
+  imageAlt: string;
+  imagePosition?: "left" | "right";
 };
 
-type DecadePageProps = {
-  params: { decada: string };
+type DecadeContent = {
+  title: string;
+  subtitle?: string;
+  bgColor?: string;
+  sections: SectionData[];
 };
 
-export default function DecadePage({ params }: DecadePageProps) {
-  const decada = params.decada;
-  const data = decadesData[decada];
+const availableDecades = [
+  "1960",
+  "1970",
+  "1980",
+  "1990",
+  "2000",
+  "2010",
+  "2020",
+  "2030",
+];
 
-  if (!data) {
-    return (
-      <div className="container mx-auto p-8 text-center">
-        <h2 className="text-2xl text-red-600 font-bold">
-          404 - Década Não Encontrada
-        </h2>
-        <p className="text-lg text-gray-600">
-          A década de {decada} não está disponível para exploração.
-        </p>
-      </div>
-    );
+// --- 1. Função de Carregamento de Dados (Para Roteamento Estático) ---
+async function getDecadeData(
+  decada: string,
+  props: { params: { decada: string } }
+): Promise<DecadeContent | null> {
+  if (!availableDecades.includes(decada)) {
+    return null;
   }
 
+  try {
+    const data = await import(`../../../data/decades/${decada}.json`);
+    return data.default as DecadeContent;
+  } catch (e) {
+    console.error(`Erro ao carregar dados para a década ${decada}:`, e);
+    return null;
+  }
+}
+
+// --- 2. Geração de Metadata (SEO) ---
+{
+  /*export async function generateMetadata(props: {
+  params: { decada: string };
+}): Promise<Metadata> {
+  const { params } = props;
+  const content = await getDecadeData(params.decada, props);
+
+  if (!content) {
+    return { title: "Década não encontrada" };
+  }
+
+  return {
+    title: `Explorando os Anos ${params.decada} | ${content.title}`,
+    description: content.subtitle ?? "",
+  };
+}*/
+}
+
+// --- 3. Geração de Rotas Estáticas (Performance) ---
+export async function generateStaticParams() {
+  return availableDecades.map((decada) => ({ decada }));
+}
+
+// --- 4. Componente Principal da Página ---
+export default async function DecadePage({
+  params,
+}: {
+  params: { decada: string };
+}) {
+  const { decada } = params;
+  const content = await getDecadeData(decada, { params });
+
+  if (!content) {
+    notFound();
+  }
+
+  const pageBgClass = content?.bgColor ?? "bg-gray-50";
+
   return (
-    <div className={`container mx-auto p-8 min-h-screen`}>
-      <h1 className="text-5xl font-extrabold mb-4 text-gray-800">
-        Explorando a Década de {decada}
-      </h1>
-      <h2 className="text-3xl font-semibold mb-6 text-gray-700">
-        {data.title}
-      </h2>
+    <div
+      className={`${pageBgClass} text-gray-800 dark:bg-gray-900 min-h-screen`}
+    >
+      <Header decada={decada} title={content!.title} />
 
-      <div className="bg-white p-6 rounded-xl shadow-2xl">
-        <p className="text-lg leading-relaxed text-gray-800">{data.content}</p>
-
-        <p className="mt-8 text-sm text-gray-500">
-          * Conteúdo carregado dinamicamente via parâmetro de rota.
-        </p>
-      </div>
+      <main className="container mx-auto px-4 py-16">
+        {content!.sections.map((section, index) => (
+          <SectionLayout
+            key={index}
+            heading={section.heading}
+            paragraph={section.paragraph}
+            imagePath={section.imagePath}
+            imageAlt={section.imageAlt}
+            imagePosition={section.imagePosition ?? "right"}
+          />
+        ))}
+      </main>
     </div>
   );
 }
 
-export async function generateStaticParams() {
-  const decades = ["1960", "1970", "1980", "1990", "2000", "2010", "2020"];
-  return decades.map((decada) => ({
-    decada,
-  }));
+function Header({ decada, title }: { decada: string; title: string }) {
+  return (
+    <header className="py-12 shadow-xl bg-white/95 dark:bg-gray-900 border-b-4 border-indigo-200 dark:border-gray-900">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-6xl font-extrabold mb-2 text-gray-900 dark:text-blue-400">
+          {decada}
+        </h1>
+        <h2 className="text-3xl font-light text-slate-900 dark:text-blue-400">
+          {title}
+        </h2>
+      </div>
+    </header>
+  );
+}
+
+// --- Componente Reutilizável: Layout de Seção (Texto + Imagem) ---
+function SectionLayout({
+  heading,
+  paragraph,
+  imagePath,
+  imageAlt,
+  imagePosition,
+}: {
+  heading: string;
+  paragraph: string;
+  imagePath: string;
+  imageAlt: string;
+  imagePosition?: "left" | "right";
+}) {
+  const orderClass =
+    imagePosition === "left" ? "md:flex-row-reverse" : "md:flex-row";
+
+  return (
+    <section
+      className={`flex flex-col ${orderClass} items-center gap-10 p-8 mb-16 rounded-3xl bg-white dark:bg-gray-900 shadow-2xl`}
+    >
+      <div className="md:w-5/12 w-full flex justify-center">
+        <div className="relative w-full h-80 sm:h-96 rounded-xl overflow-hidden shadow-xl transition-all duration-300 hover:shadow-indigo-400/50">
+          <Image
+            src={imagePath}
+            alt={imageAlt}
+            fill
+            style={{ objectFit: "cover" }}
+            className="transition-transform duration-500 hover:scale-105"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        </div>
+      </div>
+
+      <div className="md:w-7/12 w-full">
+        <h3 className="text-3xl font-bold mb-4 text-blue-600 dark:text-blue-400 border-l-4 border-blue-600 dark:border-blue-400 pl-3">
+          {heading}
+        </h3>
+        <p className="text-lg leading-relaxed text-gray-700 dark:text-white">
+          {paragraph}
+        </p>
+      </div>
+    </section>
+  );
 }
