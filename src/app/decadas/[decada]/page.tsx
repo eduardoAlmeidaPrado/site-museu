@@ -47,8 +47,7 @@ async function getDecadeData(
 }
 
 // --- 2. Geração de Metadata (SEO) ---
-{
-  /*export async function generateMetadata(props: {
+/*export async function generateMetadata(props: {
   params: { decada: string };
 }): Promise<Metadata> {
   const { params } = props;
@@ -63,7 +62,6 @@ async function getDecadeData(
     description: content.subtitle ?? "",
   };
 }*/
-}
 
 // --- 3. Geração de Rotas Estáticas (Performance) ---
 export async function generateStaticParams() {
@@ -74,9 +72,14 @@ export async function generateStaticParams() {
 export default async function DecadePage({
   params,
 }: {
-  params: { decada: string };
+  params: { decada: string; [key: string]: string | undefined };
 }) {
-  const { decada } = params;
+  // CORREÇÃO FINAL: Para satisfazer o Next.js e o aviso `sync-dynamic-apis`,
+  // você deve AGUARDAR o objeto `params` antes de desestruturar ou acessá-lo.
+  // É necessário usar `as any` porque, por padrão, o `params` de um Page Component
+  // não é tipado como Promise no TypeScript, mas o Next.js pode tratá-lo como um Promise.
+  const { decada } = await (params as any);
+
   const content = await getDecadeData(decada, { params });
 
   if (!content) {
