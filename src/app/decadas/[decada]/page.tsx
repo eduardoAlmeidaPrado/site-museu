@@ -68,19 +68,27 @@ export async function generateStaticParams() {
   return availableDecades.map((decada) => ({ decada }));
 }
 
+// Definição do tipo para o objeto de parâmetros
+type DecadeParams = {
+  decada: string;
+  [key: string]: string | undefined;
+};
+
 // --- 4. Componente Principal da Página ---
 export default async function DecadePage({
   params,
 }: {
-  params: { decada: string; [key: string]: string | undefined };
+  // CORREÇÃO DA TIPAGEM: Definir params como Promise<DecadeParams>
+  // Isso resolve o erro de tipagem e o aviso do Next.js sobre `sync-dynamic-apis`.
+  params: Promise<DecadeParams> | DecadeParams;
 }) {
-  // CORREÇÃO FINAL: Para satisfazer o Next.js e o aviso `sync-dynamic-apis`,
-  // você deve AGUARDAR o objeto `params` antes de desestruturar ou acessá-lo.
-  // É necessário usar `as any` porque, por padrão, o `params` de um Page Component
-  // não é tipado como Promise no TypeScript, mas o Next.js pode tratá-lo como um Promise.
-  const { decada } = await (params as any);
+  // CORREÇÃO: Usar await para resolver a Promise (se for uma) antes de desestruturar
+  const finalParams = await params;
+  const { decada } = finalParams;
 
-  const content = await getDecadeData(decada, { params });
+  const content = await getDecadeData(decada, {
+    params: finalParams as { decada: string },
+  });
 
   if (!content) {
     notFound();
